@@ -61,9 +61,11 @@ router.post("/", async (req, res, next) => {
   try {
     const { userId } = req.user;
     const body = req.body;
+
     const post = new Post({
       userId,
       text: body.text,
+      asset: body.asset,
     });
 
     await post.save();
