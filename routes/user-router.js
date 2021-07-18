@@ -8,20 +8,6 @@ const { Post } = require("../models/post.model");
 const { Notification } = require("../models/notification.model");
 const { extend } = require("lodash");
 
-// router.get("/:userName/posts",async (req,res)=>{
-//   try{
-//     const {userName} =req.params;
-//     const userId=await User.findOne({userName,"userId"});
-//     const response=await Post.find({userId}).populate({path:"userId",select:"firstName lastName userName bio photoUrl"});
-//    console.log(response);
-//     res.status(200).json({success:true,postList:response});
-
-//   }
-//   catch(error){
-//       res.status(500).json({success:false,errorMessage:error.message});
-//       }
-// });
-
 router.use(async (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   try {
@@ -86,7 +72,6 @@ router.post("/unfollow", async (req, res) => {
 });
 
 router.get("/:userName/followers", async (req, res) => {
-  const { userId } = req.user;
   const { userName } = req.params;
   const followerList = await User.findOne({ userName }, "followers").populate({
     path: "followers",
@@ -96,7 +81,6 @@ router.get("/:userName/followers", async (req, res) => {
 });
 
 router.get("/:userName/following", async (req, res) => {
-  const { userId } = req.user;
   const { userName } = req.params;
   const followingList = await User.findOne({ userName }, "following").populate({
     path: "following",
@@ -118,7 +102,6 @@ router.post("/editProfile", async (req, res) => {
   }
 });
 router.get("/:userName", async (req, res) => {
-  console.log("hello");
   const { userName } = req.params;
   const userDetails = await User.findOne({ userName });
   userDetails.password = undefined;
@@ -127,10 +110,6 @@ router.get("/:userName", async (req, res) => {
 
 router.get("/search/query", async (req, res) => {
   try {
-    // const {userId}=req.use
-    // console.log({userId});
-    // const query= req.query.name;
-    // const response=await User.find({ $text: { $search: query } } );
     let result = [];
     if (req.query.name) {
       const regex = new RegExp(escapeRegex(req.query.name), "gi");

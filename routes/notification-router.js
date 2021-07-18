@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
     const notificationList = await Notification.find({ reciever: userId })
       .populate({ path: "sender ", select: "firstName lastName photoUrl" })
       .populate({ path: "postId", select: "text" });
-    console.log(notificationList);
+
     res.status(200).json({ success: true, notificationList });
   } catch (error) {
     console.error(log);

@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
   try {
     const body = req.body;
     const user = await User.findOne({ email: body.email });
-    console.log(user);
+
     if (user) {
       const validPassword = await bcrypt.compare(body.password, user.password);
       if (validPassword) {

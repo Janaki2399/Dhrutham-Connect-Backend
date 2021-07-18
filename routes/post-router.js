@@ -24,7 +24,7 @@ router.get("/:userName", async (req, res) => {
   try {
     const { userName } = req.params;
     const userId = await User.findOne({ userName }, "userId");
-    console.log(userId);
+
     const response = await Post.find({ userId }).populate({
       path: "userId",
       select: "firstName lastName userName bio photoUrl",

@@ -43,7 +43,6 @@ router.post("/", async (req, res) => {
   token = `Bearer ${token}`;
 
   return res.status(200).json({ success: true, token });
-  res.status(200).json({ success: true });
 });
 
 module.exports = router;
