@@ -27,10 +27,7 @@ router.use(async (req, res, next) => {
 router.get("/", async (req, res) => {
   try {
     const { userId } = req.user;
-    const user = await User.findById(
-      userId,
-      "userName photoUrl followers following"
-    ).exec();
+    const user = await User.findById(userId).exec();
     res.status(200).json({ user });
   } catch (error) {
     res.status(500).json({ success: false, errorMessage: error.message });
